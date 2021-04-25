@@ -19,7 +19,7 @@ console_logger.addHandler(console_handler)
 
 class VkPhotoBackup:
     def __init__(self, photos_owner_id, vk_access_token, ya_access_token):
-        self.photo_owner_id = photos_owner_id
+        self.photos_owner_id = photos_owner_id
         self.vk_access_token = vk_access_token
         self.headers = {
             'authorization': ya_access_token
@@ -30,7 +30,7 @@ class VkPhotoBackup:
         extended = '1'
         api_version = '5.130'
         params = {
-            'owner_id': self.photo_owner_id,
+            'owner_id': self.photos_owner_id,
             'album_id': album_id,
             'extended': extended,
             'access_token': self.vk_access_token,
