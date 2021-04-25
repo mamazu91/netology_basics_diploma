@@ -18,8 +18,8 @@ console_logger.addHandler(console_handler)
 
 
 class VkPhotoBackup:
-    def __init__(self, photo_owner_id, vk_access_token, ya_access_token):
-        self.photo_owner_id = photo_owner_id
+    def __init__(self, photos_owner_id, vk_access_token, ya_access_token):
+        self.photo_owner_id = photos_owner_id
         self.vk_access_token = vk_access_token
         self.headers = {
             'authorization': ya_access_token
@@ -38,17 +38,17 @@ class VkPhotoBackup:
         }
         get_photos_api = 'https://api.vk.com/method/photos.get'
 
-        console_logger.info(f"Getting photos from 'https://vk.com/{(params['owner_id'])}'")
+        console_logger.info(f"Getting photos from 'https://vk.com/id{(params['owner_id'])}'")
         file_logger.info('===================================================================')
         file_logger.info(f'Starting new log')
-        file_logger.info(f"Getting photos from 'https://vk.com/{(params['owner_id'])}'")
+        file_logger.info(f"Getting photos from 'https://vk.com/id{(params['owner_id'])}'")
         get_photos_api_response = requests.get(get_photos_api, params=params)
 
         if 'error' in get_photos_api_response.json():
             error_message = get_photos_api_response.json()['error']['error_msg']
-            console_logger.error(f"Failed to get photos from 'https://vk.com/{(params['owner_id'])}'")
+            console_logger.error(f"Failed to get photos from 'https://vk.com/id{(params['owner_id'])}'")
             console_logger.error(f"Error: {error_message}")
-            file_logger.error(f"Failed to get photos from 'https://vk.com/{(params['owner_id'])}'")
+            file_logger.error(f"Failed to get photos from 'https://vk.com/id{(params['owner_id'])}'")
             file_logger.error(f"Error: {error_message}\n")
             return {
                 'error': {
@@ -58,9 +58,9 @@ class VkPhotoBackup:
 
         if get_photos_api_response.json()['response']['count'] == 0:
             error_message = 'The user does not have any profile photos'
-            console_logger.error(f"Failed to get photos from 'https://vk.com/{(params['owner_id'])}'")
+            console_logger.error(f"Failed to get photos from 'https://vk.com/id{(params['owner_id'])}'")
             console_logger.error(f"Error: {error_message}")
-            file_logger.error(f"Failed to get photos from 'https://vk.com/{(params['owner_id'])}'")
+            file_logger.error(f"Failed to get photos from 'https://vk.com/id{(params['owner_id'])}'")
             file_logger.error(f"Error: {error_message}\n")
             return {
                 'error': {
